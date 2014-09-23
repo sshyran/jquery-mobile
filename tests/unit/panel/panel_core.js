@@ -642,4 +642,86 @@
 		});
 	});
 
+	module( "Classes option backcompat" );
+
+	test( "_copyClassKeys() correctly copies data from overwritten old key to pristine new key", function() {
+		var oldClassKeys = {
+				panelOpen: "ui-panel-open"
+			},
+			copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
+			classes = {
+				"panelOpen": "my-custom-class",
+				"ui-panel-open": null
+			};
+
+		copyClassKeys( oldClassKeys, classes );
+
+		deepEqual( classes[ "ui-panel-open" ], "my-custom-class",
+			"Value copied from old key to new key" );
+	});
+
+	test( "_copyClassKeys() correctly copies data from extended old key to pristine new key", function() {
+		var oldClassKeys = {
+				panelOpen: "ui-panel-open"
+			},
+			copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
+			classes = {
+				"panelOpen": "ui-panel-open my-custom-class",
+				"ui-panel-open": null
+			};
+
+		copyClassKeys( oldClassKeys, classes );
+
+		deepEqual( classes[ "ui-panel-open" ], "my-custom-class",
+			"Value copied from old key to new key" );
+	});
+
+
+	test( "_copyClassKeys() leaves modified new key intact", function() {
+		var oldClassKeys = {
+				panelOpen: "ui-panel-open"
+			},
+			copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
+			classes = {
+				"panelOpen": "ui-panel-open",
+				"ui-panel-open": "my-custom-class"
+			};
+
+		copyClassKeys( oldClassKeys, classes );
+
+		deepEqual( classes[ "ui-panel-open" ], "my-custom-class",
+			"New key left intact" );
+	});
+
+	test( "_copyClassKeys() merges modified old key and new key", function() {
+		var oldClassKeys = {
+				panelOpen: "ui-panel-open"
+			},
+			copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
+			classes = {
+				"panelOpen": "my-other-custom-class",
+				"ui-panel-open": "my-custom-class"
+			};
+
+		copyClassKeys( oldClassKeys, classes );
+
+		deepEqual( classes[ "ui-panel-open" ], "my-other-custom-class my-custom-class",
+			"Old key and new key merged into new key" );
+	});
+
+	test( "_copyClassKeys() merges extended old key and new key", function() {
+		var oldClassKeys = {
+				panelOpen: "ui-panel-open"
+			},
+			copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
+			classes = {
+				"panelOpen": "ui-panel-open my-other-custom-class",
+				"ui-panel-open": "my-custom-class"
+			};
+
+		copyClassKeys( oldClassKeys, classes );
+
+		deepEqual( classes[ "ui-panel-open" ], "my-other-custom-class my-custom-class",
+			"Old key and new key merged into new key" );
+	});
 }( jQuery ));

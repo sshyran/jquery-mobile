@@ -9,22 +9,45 @@ define( [ "jquery", "../widget", "./page" ], function( jQuery ) {
 //>>excludeEnd("jqmBuildExclude");
 (function( $, undefined ) {
 
+// This declaration records the default value of the panel's class names. It is only used during
+// the deprecation period (1.5.0) to map the old class keys to the new class keys and doubles as
+// the hash of deprecated class keys.
+var oldClassKeys = {
+	panel: "ui-panel",
+	panelOpen: "ui-panel-open",
+	panelClosed: "ui-panel-closed",
+	panelFixed: "ui-panel-fixed",
+	panelInner: "ui-panel-inner",
+	modal: "ui-panel-dismiss",
+	modalOpen: "ui-panel-dismiss-open",
+	pageContainer: "ui-panel-page-container",
+	pageWrapper: "ui-panel-wrapper",
+	pageFixedToolbar: "ui-panel-fixed-toolbar",
+
+	// Used for wrapper and fixed toolbars position, display and open classes
+	pageContentPrefix: "ui-panel-page-content",
+	animate: "ui-panel-animate"
+};
+
 $.widget( "mobile.panel", {
 	options: {
-		classes: {
-			panel: "ui-panel",
-			panelOpen: "ui-panel-open",
-			panelClosed: "ui-panel-closed",
-			panelFixed: "ui-panel-fixed",
-			panelInner: "ui-panel-inner",
-			modal: "ui-panel-dismiss",
-			modalOpen: "ui-panel-dismiss-open",
-			pageContainer: "ui-panel-page-container",
-			pageWrapper: "ui-panel-wrapper",
-			pageFixedToolbar: "ui-panel-fixed-toolbar",
-			pageContentPrefix: "ui-panel-page-content", /* Used for wrapper and fixed toolbars position, display and open classes. */
-			animate: "ui-panel-animate"
-		},
+
+		// Merging old and new class keys is deprecated. As of 1.6.0 we will drop the old class
+		// keys and thus this will be a simple declaration once more.
+		classes: $.extend( {}, {
+			"ui-panel": null,
+			"ui-panel-open": null,
+			"ui-panel-closed": null,
+			"ui-panel-fixed": null,
+			"ui-panel-inner": null,
+			"ui-panel-dismiss": null,
+			"ui-panel-dismiss-open": null,
+			"ui-panel-page-container": null,
+			"ui-panel-wrapper": null,
+			"ui-panel-fixed-toolbar": null,
+			"ui-panel-page-content": null,
+			"ui-panel-animate": null
+		}, oldClassKeys ),
 		animate: true,
 		theme: null,
 		position: "left",
@@ -45,6 +68,11 @@ $.widget( "mobile.panel", {
 	_create: function() {
 		var el = this.element,
 			parentPage = el.closest( ".ui-page, :jqmData(role='page')" );
+
+		// Copy the value of the old class key to the new class key, but remove the new class key
+		// from the value of the old class key first. This step is deprecated as of 1.5.0 and will
+		// be removed in 1.6.0, because we will drop the old class keys entirely.
+		this._copyClassKeys( oldClassKeys, this.options.classes );
 
 		// expose some private props to other methods
 		$.extend( this, {
@@ -75,6 +103,24 @@ $.widget( "mobile.panel", {
 		}
 
 		this._bindSwipeEvents();
+	},
+
+	// This function is deprecated as of 1.5.0 and will be removed in 1.6.0. It serves to bridge
+	// the gap between the old class keys and the new class keys for the classes option.
+	_copyClassKeys: function( oldClassKeys, classes ) {
+		var oldKey, newKey, oldValue, newValue, finalValue, keyInValueIndex;
+
+		for ( oldKey in oldClassKeys ) {
+			newKey = oldClassKeys[ oldKey ];
+			oldValue = ( classes[ oldKey ] ? classes[ oldKey ].split( " " ) : [] );
+			newValue = ( classes[ newKey ] ? classes[ newKey ].split( " " ) : [] );
+			finalValue = oldValue.concat( newValue );
+			keyInValueIndex = finalValue.indexOf( newKey );
+			if ( keyInValueIndex >= 0 ) {
+				finalValue.splice( keyInValueIndex, 1 );
+			}
+			classes[ newKey ] = finalValue.join( " " ) || null;
+		}
 	},
 
 	_getPanelInner: function() {
