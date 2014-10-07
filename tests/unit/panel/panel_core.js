@@ -56,7 +56,7 @@
 	});
 
 	asyncTest( "classes modified by open", function() {
-		expect( 11 );
+		expect( 10 );
 		var $panel = $( "#panel-test-open" ),
 			$page = getPageFromPanel( $panel );
 
@@ -72,19 +72,16 @@
 
 			equal( $wrapper.length, 1, "wrapper exists." );
 
-			ok( !$wrapper.hasClass( defaults.classes.contentWrapClosed ), "wrapper not closed class" );
+			ok( $wrapper.hasClass( "ui-panel-page-content-open" ), "wrapper open class" );
 
-			ok( $wrapper.hasClass( defaults.classes.pageContentPrefix + "-open" ), "wrapper open class" );
+			ok( $wrapper.hasClass( "ui-panel-page-content-position-left" ), "wrapper position class" );
+			ok( $wrapper.hasClass( "ui-panel-page-content-display-reveal" ), "wrapper display type class" );
 
-			var prefix = defaults.classes.pageContentPrefix;
-			ok( $wrapper.hasClass( prefix + "-position-left" ), "wrapper position class" );
-			ok( $wrapper.hasClass( prefix + "-display-reveal" ), "wrapper display type class" );
-
-			ok( $modal.hasClass( defaults.classes.modalOpen ), "modal open class" );
+			ok( $modal.hasClass( "ui-panel-dismiss-open" ), "modal open class" );
 	
 			prefix = defaults.classes.modal;
-			ok( $modal.hasClass( prefix + "-position-left" ), "modal position class" );
-			ok( $modal.hasClass( prefix + "-display-reveal" ), "modal display type class" );
+			ok( $modal.hasClass( "ui-panel-dismiss-position-left" ), "modal position class" );
+			ok( $modal.hasClass( "ui-panel-dismiss-display-reveal" ), "modal display type class" );
 
 			// TODO test positioning when panel height > screen height
 			// TODO test rebind resize after complete

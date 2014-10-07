@@ -186,8 +186,8 @@ $.widget( "mobile.panel", {
 	},
 
 	_getPosDisplayClasses: function( prefix ) {
-		return this._classes( prefix + "-position-" + this.options.position ) + " " +
-			this._classes( prefix + "-display-" + this.options.display );
+		return this._classes( prefix + "-position-" + this.options.position + " " +
+			prefix + "-display-" + this.options.display );
 	},
 
 	_getPanelClasses: function() {
