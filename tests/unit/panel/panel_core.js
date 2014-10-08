@@ -74,8 +74,10 @@
 
 			ok( $wrapper.hasClass( "ui-panel-page-content-open" ), "wrapper open class" );
 
-			ok( $wrapper.hasClass( "ui-panel-page-content-position-left" ), "wrapper position class" );
-			ok( $wrapper.hasClass( "ui-panel-page-content-display-reveal" ), "wrapper display type class" );
+			ok( $wrapper.hasClass( "ui-panel-page-content-position-left" ),
+				"wrapper position class" );
+			ok( $wrapper.hasClass( "ui-panel-page-content-display-reveal" ),
+				"wrapper display type class" );
 
 			ok( $modal.hasClass( "ui-panel-dismiss-open" ), "modal open class" );
 	
@@ -641,37 +643,39 @@
 
 	module( "Classes option backcompat" );
 
-	test( "_copyClassKeys() correctly copies data from overwritten old key to pristine new key", function() {
-		var oldClassKeys = {
-				panelOpen: "ui-panel-open"
-			},
-			copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
-			classes = {
-				"panelOpen": "my-custom-class",
-				"ui-panel-open": null
-			};
+	test( "_copyClassKeys() correctly copies data from overwritten old key to pristine new key",
+		function() {
+			var oldClassKeys = {
+					panelOpen: "ui-panel-open"
+				},
+				copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
+				classes = {
+					"panelOpen": "my-custom-class",
+					"ui-panel-open": null
+				};
 
-		copyClassKeys( oldClassKeys, classes );
+			copyClassKeys( oldClassKeys, classes );
 
-		deepEqual( classes[ "ui-panel-open" ], "my-custom-class",
-			"Value copied from old key to new key" );
-	});
+			deepEqual( classes[ "ui-panel-open" ], "my-custom-class",
+				"Value copied from old key to new key" );
+		});
 
-	test( "_copyClassKeys() correctly copies data from extended old key to pristine new key", function() {
-		var oldClassKeys = {
-				panelOpen: "ui-panel-open"
-			},
-			copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
-			classes = {
-				"panelOpen": "ui-panel-open my-custom-class",
-				"ui-panel-open": null
-			};
+	test( "_copyClassKeys() correctly copies data from extended old key to pristine new key",
+		function() {
+			var oldClassKeys = {
+					panelOpen: "ui-panel-open"
+				},
+				copyClassKeys = $.mobile.panel.prototype._copyClassKeys,
+				classes = {
+					"panelOpen": "ui-panel-open my-custom-class",
+					"ui-panel-open": null
+				};
 
-		copyClassKeys( oldClassKeys, classes );
+			copyClassKeys( oldClassKeys, classes );
 
-		deepEqual( classes[ "ui-panel-open" ], "my-custom-class",
-			"Value copied from old key to new key" );
-	});
+			deepEqual( classes[ "ui-panel-open" ], "my-custom-class",
+				"Value copied from old key to new key" );
+		});
 
 
 	test( "_copyClassKeys() leaves modified new key intact", function() {

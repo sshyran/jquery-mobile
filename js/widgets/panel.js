@@ -180,7 +180,9 @@ $.widget( "mobile.panel", {
 	_getFixedToolbars: function() {
 		var extFixedToolbars = $( "body" ).children( ".ui-header-fixed, .ui-footer-fixed" ),
 			intFixedToolbars = this._page().find( ".ui-header-fixed, .ui-footer-fixed" ),
-			fixedToolbars = extFixedToolbars.add( intFixedToolbars ).addClass( this._classes( "ui-panel-fixed-toolbar" ) );
+			fixedToolbars = extFixedToolbars
+				.add( intFixedToolbars )
+					.addClass( this._classes( "ui-panel-fixed-toolbar" ) );
 
 		return fixedToolbars;
 	},
@@ -379,7 +381,8 @@ $.widget( "mobile.panel", {
 
 					if ( o.theme && o.display !== "overlay" ) {
 						self._page().parent()
-							.addClass( self._classes( "ui-panel-page-container-themed" ) + " ui-panel-page-container-" + o.theme );
+							.addClass( self._classes( "ui-panel-page-container-themed" ) +
+								" ui-panel-page-container-" + o.theme );
 					}
 
 					self.element
@@ -388,15 +391,19 @@ $.widget( "mobile.panel", {
 
 					self._positionPanel( true );
 
-					self._pageContentOpenClasses = self._getPosDisplayClasses( "ui-panel-page-content" );
+					self._pageContentOpenClasses = self._getPosDisplayClasses(
+						"ui-panel-page-content" );
 
 					if ( o.display !== "overlay" ) {
-						self._page().parent().addClass( self._classes("ui-panel-page-container" ) );
+						self._page()
+							.parent()
+								.addClass( self._classes("ui-panel-page-container" ) );
 						self._wrapper.addClass( self._pageContentOpenClasses );
 						self._fixedToolbars().addClass( self._pageContentOpenClasses );
 					}
 
-					self._modalOpenClasses = self._getPosDisplayClasses( "ui-panel-dismiss" ) + " " + self._classes( "ui-panel-dismiss-open" );
+					self._modalOpenClasses = self._getPosDisplayClasses( "ui-panel-dismiss" ) +
+						" " + self._classes( "ui-panel-dismiss-open" );
 					if ( self._modal ) {
 						self._modal
 							.addClass( self._modalOpenClasses )
@@ -412,7 +419,8 @@ $.widget( "mobile.panel", {
 
 					if ( o.display !== "overlay" ) {
 						self._wrapper.addClass( self._classes( "ui-panel-page-content-open" ) );
-						self._fixedToolbars().addClass( self._classes( "ui-panel-page-content-open" ) );
+						self._fixedToolbars()
+							.addClass( self._classes( "ui-panel-page-content-open" ) );
 					}
 
 					self._bindFixListener();
@@ -465,15 +473,21 @@ $.widget( "mobile.panel", {
 				},
 				complete = function() {
 					if ( o.theme && o.display !== "overlay" ) {
-						self._page().parent().removeClass( self._classes( "ui-panel-page-container-themed" ) + " " + "ui-panel-page-container-" + o.theme );
+						self._page()
+							.parent()
+								.removeClass( self._classes( "ui-panel-page-container-themed" ) +
+									" " + "ui-panel-page-container-" + o.theme );
 					}
 
 					self.element.addClass( self._classes( "ui-panel-closed" ) );
 
 					if ( o.display !== "overlay" ) {
-						self._page().parent().removeClass( self._classes( "ui-panel-page-container" ) );
+						self._page()
+							.parent()
+								.removeClass( self._classes( "ui-panel-page-container" ) );
 						self._wrapper.removeClass( self._classes( "ui-panel-page-content-open" ) );
-						self._fixedToolbars().removeClass( self._classes( "ui-panel-page-content-open" ) );
+						self._fixedToolbars()
+							.removeClass( self._classes( "ui-panel-page-content-open" ) );
 					}
 
 					if ( $.support.cssTransform3d && !!o.animate && o.display !== "overlay" ) {
@@ -528,7 +542,10 @@ $.widget( "mobile.panel", {
 				this._page().parent().removeClass( this._classes( "ui-panel-page-container" ) );
 
 				if ( o.theme ) {
-					this._page().parent().removeClass( this._classes( "ui-panel-page-container-themed" ) + " " + "ui-panel-page-container-" + o.theme );
+					this._page()
+						.parent()
+							.removeClass( this._classes( "ui-panel-page-container-themed" ) + " " +
+								"ui-panel-page-container-" + o.theme );
 				}
 			}
 		}
@@ -546,7 +563,10 @@ $.widget( "mobile.panel", {
 		this._panelInner.children().unwrap();
 
 		this.element
-			.removeClass( [ this._getPanelClasses(), this._classes( "ui-panel-open" ), this._classes( "ui-panel-animate" ) ].join( " " ) )
+			.removeClass([
+				this._getPanelClasses(),
+				this._classes( "ui-panel-open" ),
+				this._classes( "ui-panel-animate" ) ].join( " " ) )
 			.off( "swipeleft.panel swiperight.panel" )
 			.off( "panelbeforeopen" )
 			.off( "panelhide" )
