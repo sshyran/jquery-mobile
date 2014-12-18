@@ -6,7 +6,6 @@ $files = array(
 	// to revert to the pre async include, and should not be
 	// used in other build methods
 	'jquery.mobile.define.js',
-	'ns.js',
 	'../external/jquery-ui/jquery.ui.widget.js',
 	'widget.js',
 	'media.js',

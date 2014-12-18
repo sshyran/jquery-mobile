@@ -73,15 +73,6 @@ div.ui-mobile-viewport {
 	visibility: hidden;
 }
 
-/* Non-js content hiding */
-.ui-nojs {
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	clip: rect(1px,1px,1px,1px);
-}
-
 /* Loading screen */
 .ui-loading .ui-loader {
 	display: block;

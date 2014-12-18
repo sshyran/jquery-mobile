@@ -52,7 +52,6 @@ index 6200fe6..3a4625c 100644
 @@ -19,12 +19,6 @@ define([
         './jquery.mobile.listview.filter',
         './jquery.mobile.listview.autodividers',
-        './jquery.mobile.nojs',
 -       './jquery.mobile.forms.checkboxradio',
 -       './jquery.mobile.forms.button',
 -       './jquery.mobile.forms.slider',

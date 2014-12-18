@@ -24,7 +24,6 @@ define([
 	"./widgets/listview",
 	"./widgets/listview.autodividers",
 	"./widgets/listview.hidedividers",
-	"./nojs",
 	"./widgets/forms/checkboxradio",
 	"./widgets/forms/button",
 	"./widgets/forms/slider",

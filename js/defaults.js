@@ -25,7 +25,7 @@ define( [ "jquery", "./ns", "json!../package.json" ], function( jQuery, ns, pkg 
 		hideUrlBar: true,
 
 		// Keepnative Selector
-		keepNative: ":jqmData(role='none'), :jqmData(role='nojs')",
+		keepNative: ":jqmData(role='none')",
 
 		// Deprecated in 1.4 remove in 1.5
 		// Class assigned to page currently in view, and during transitions
