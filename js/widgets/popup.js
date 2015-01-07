@@ -49,6 +49,33 @@ function getWindowCoordinates( theWindow ) {
 	};
 }
 
+$.fn.enhance = (function( orig ) {
+	return function() {
+
+		// Links within content areas, tests included with page
+		$( this )
+			.find( "a" )
+			.jqmEnhanceable()
+			.filter( ":jqmData(rel='popup')[href][href!='']" )
+			.each( function() {
+
+				// Accessibility info for popups
+				var element = this,
+					idref = element.getAttribute( "href" ).substring( 1 );
+
+				if ( idref ) {
+					element.setAttribute( "aria-haspopup", true );
+					element.setAttribute( "aria-owns", idref );
+					element.setAttribute( "aria-expanded", false );
+				}
+			})
+			.end()
+			.not( ".ui-btn, :jqmData(role='none')" )
+			.addClass( "ui-link" );
+		return orig ? orig.apply( this, arguments ) : this;
+	};
+})( $.fn.enhance );
+
 $.widget( "mobile.popup", {
 	options: {
 		wrapperClass: null,

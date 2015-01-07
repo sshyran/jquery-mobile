@@ -6,35 +6,6 @@
 define( [ "jquery", "../widget", "../core" ], function( jQuery ) {
 //>>excludeEnd("jqmBuildExclude");
 (function( $, undefined ) {
-$.mobile.widgets = {};
-
-var originalWidget = $.widget,
-
-	// Record the original, non-mobileinit-modified version of $.mobile.keepNative
-	// so we can later determine whether someone has modified $.mobile.keepNative
-	keepNativeFactoryDefault = $.mobile.keepNative;
-
-$.widget = (function( orig ) {
-	return function() {
-		var constructor = orig.apply( this, arguments ),
-			name = constructor.prototype.widgetName;
-
-		constructor.initSelector = ( ( constructor.prototype.initSelector !== undefined ) ?
-			constructor.prototype.initSelector : ":jqmData(role='" + name + "')" );
-
-		$.mobile.widgets[ name ] = constructor;
-
-		return constructor;
-	};
-})( $.widget );
-
-// Make sure $.widget still has bridge and extend methods
-$.extend( $.widget, originalWidget );
-
-// For backcompat remove in 1.5
-$.mobile.document.on( "create", function( event ) {
-	$( event.target ).enhanceWithin();
-});
 
 $.widget( "mobile.page", {
 	options: {

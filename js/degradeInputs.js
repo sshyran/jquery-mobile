@@ -22,8 +22,6 @@ $.mobile.degradeInputs = {
 	url: false,
 	week: false
 };
-// Backcompat remove in 1.5
-$.mobile.page.prototype.options.degradeInputs = $.mobile.degradeInputs;
 
 // Auto self-init widgets
 $.mobile.degradeInputsWithin = function( target ) {
@@ -49,6 +47,13 @@ $.mobile.degradeInputsWithin = function( target ) {
 	});
 
 };
+
+$.fn.enhance = (function( orig ) {
+	return function() {
+		$.mobile.degradeInputsWithin( this );
+		return orig.apply( this, arguments );
+	};
+})( $.fn.enhance );
 
 })( jQuery );
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
