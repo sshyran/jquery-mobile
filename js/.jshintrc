@@ -21,6 +21,7 @@
 	"globals": {
 		"define": false,
 		"require": false,
-		"requirejs": false
+		"requirejs": false,
+		"jQuery": false
 	}
 }

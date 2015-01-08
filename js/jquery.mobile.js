@@ -17,7 +17,6 @@ define([
 	"./widgets/dialog",
 	"./widgets/collapsible",
 	"./widgets/collapsibleSet",
-	"./fieldContain",
 	"./grid",
 	"./widgets/navbar",
 	"./widgets/listview",

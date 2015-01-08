@@ -3,7 +3,7 @@
 //>>label: Page Creation
 //>>group: Core
 
-define( [ "jquery", "../widget", "../core" ], function( jQuery ) {
+define( [ "jquery", "../widget", "../core", "widgets/enhancer" ], function( jQuery ) {
 //>>excludeEnd("jqmBuildExclude");
 (function( $, undefined ) {
 
@@ -11,13 +11,8 @@ $.widget( "mobile.page", {
 	options: {
 		theme: "a",
 		domCache: false,
-
-		// Deprecated in 1.4 remove in 1.5
-		keepNativeDefault: $.mobile.keepNative,
-
-		// Deprecated in 1.4 remove in 1.5
-		contentTheme: null,
-		enhanced: false
+		enhanced: false,
+		enhanceChildren: true
 	},
 
 	// DEPRECATED for > 1.4
@@ -41,8 +36,9 @@ $.widget( "mobile.page", {
 			pagebeforehide: "removeContainerBackground",
 			pagebeforeshow: "_handlePageBeforeShow"
 		});
-
-		this.element.enhanceWithin();
+		if ( this.options.enhanceChildren ) {
+			this.element.enhance();
+		}
 		// Dialog widget is deprecated in 1.4 remove this in 1.5
 		if ( $.mobile.getAttribute( this.element[0], "role" ) === "dialog" && $.mobile.dialog ) {
 			this.element.dialog();
@@ -122,27 +118,6 @@ $.widget( "mobile.page", {
 	// set the page container background to the page theme
 	setContainerBackground: function( theme ) {
 		this.element.parent().pagecontainer( { "theme": theme || this.options.theme } );
-	},
-	// Deprecated in 1.4 remove in 1.5
-	keepNativeSelector: function() {
-		var options = this.options,
-			keepNative = $.trim( options.keepNative || "" ),
-			globalValue = $.trim( $.mobile.keepNative ),
-			optionValue = $.trim( options.keepNativeDefault ),
-
-			// Check if $.mobile.keepNative has changed from the factory default
-			newDefault = ( keepNativeFactoryDefault === globalValue ?
-				"" : globalValue ),
-
-			// If $.mobile.keepNative has not changed, use options.keepNativeDefault
-			oldDefault = ( newDefault === "" ? optionValue : "" );
-
-		// Concatenate keepNative selectors from all sources where the value has
-		// changed or, if nothing has changed, return the default
-		return ( ( keepNative ? [ keepNative ] : [] )
-			.concat( newDefault ? [ newDefault ] : [] )
-			.concat( oldDefault ? [ oldDefault ] : [] )
-			.join( ", " ) );
 	}
 });
 })( jQuery );
