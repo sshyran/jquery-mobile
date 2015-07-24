@@ -1,7 +1,8 @@
 /*
  * mobile Fixed Toolbar unit tests
  */
-( function( $ ) {
+define( [ "jquery" ], function( $ ) {
+
 	module( "jquery.mobile.toolbar.js" );
 
 	var pageActiveFixedHeader = $( ".ui-page-active .ui-toolbar-header-fixed" );
@@ -77,4 +78,5 @@
 
 			$.mobile.zoom.enable( true );
 	} );
-} )( jQuery );
+
+} );
