@@ -1,3 +1,5 @@
+define( [ "jquery" ], function( $ ) {
+
 module( "enhancer: basic" );
 
 test( "Basic widget enhancement", function() {
@@ -103,4 +105,6 @@ test( "$.fn.enhanceOptions", function() {
 	};
 
 	deepEqual( options, expected, "enhanceOptions returns options object" );
+} );
+
 } );
