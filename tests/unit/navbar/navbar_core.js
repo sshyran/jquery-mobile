@@ -1,8 +1,10 @@
 /*
  * mobile navbar unit tests
  */
-( function( QUnit, $ ) {
+define( [ "jquery" ], function( $ ) {
+
 QUnit.test( "navbar button gets active button class when clicked", function( assert ) {
+
 	var link = $( "#disabled-button-click a:not(.ui-disabled)" ).first();
 
 	link.click();
@@ -39,4 +41,5 @@ QUnit.test( "classes are correctly assigned", function( assert ) {
 	assert.ok( !d.hasClass( "ui-icon-arrow-r" ) && d.hasClass( "ui-icon-arrow-d" ) && !d.hasClass( "ui-icon-arrow-u" ), "second item only has class of arrow-d" );
 	assert.ok( !u.hasClass( "ui-icon-arrow-r" ) && !u.hasClass( "ui-icon-arrow-d" ) && u.hasClass( "ui-icon-arrow-u" ), "third item only has class of arrow-u" );
 } );
-} )( QUnit, jQuery );
+
+} );
