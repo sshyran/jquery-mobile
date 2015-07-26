@@ -2,8 +2,7 @@
  * mobile panel unit tests
  */
 
-
-( function( QUnit, $ ) {
+define( [ "jquery" ], function( $ ) {
 
 var count,
 	defaults = $.mobile.panel.prototype.options,
@@ -687,4 +686,4 @@ QUnit.asyncTest( "external panel: test classes during A>B>A transition", functio
 	} );
 } );
 
-}( QUnit, jQuery ) );
+} );
