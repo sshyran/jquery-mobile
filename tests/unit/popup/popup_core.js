@@ -1,7 +1,7 @@
 /*
  * mobile popup unit tests
  */
-( function( $ ) {
+define( [ "jquery" ], function( $ ) {
 
 module( "jquery.mobile.popup.js" );
 
@@ -147,4 +147,4 @@ test( "On-the-fly popup is enhanced and de-enhanced correctly", function( assert
 		"After destroying on-the-fly popup, its payload is returned to its original location" );
 } );
 
-} )( jQuery );
+} );
