@@ -1,3 +1,5 @@
+define( [ "jquery" ], function( $ ) {
+
 test( "_find() can handle weird data-url attributes", function() {
 	deepEqual(
 		$.mobile.pagecontainer.prototype._find.call( {
@@ -87,3 +89,5 @@ test( "Recognize dialog via presence of the data key, not the ui-page-dialog cla
 } );
 
 } )();
+
+} );
