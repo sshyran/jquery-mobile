@@ -1,7 +1,8 @@
 /*
  * mobile page unit tests
  */
-( function( $ ) {
+define( [ "jquery"], function( $ ) {
+
 var libName = 'jquery.mobile.page.sections';
 
 module( libName );
@@ -44,4 +45,5 @@ test( "sections inside an ignored container do not enhance", function() {
 
 	$.mobile.ignoreContentEnabled = false;
 } );
-} )( jQuery );
+
+} );
