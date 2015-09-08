@@ -79,11 +79,12 @@ return $.widget( "mobile.selectmenu", $.extend( {
 		return this.select.find( "option" );
 	},
 
-	// setup items that are generally necessary for select menu extension
+	// Setup items that are generally necessary for select menu extension
 	_preExtension: function() {
 		var inline = this.options.inline || this.element.jqmData( "inline" ),
 			mini = this.options.mini || this.element.jqmData( "mini" ),
 			classes = "";
+
 		// TODO: Post 1.1--once we have time to test thoroughly--any classes manually applied to
 		// the original element should be carried over to the enhanced element, with an `-enhanced`
 		// suffix. See https://github.com/jquery/jquery-mobile/issues/3577
@@ -298,7 +299,7 @@ return $.widget( "mobile.selectmenu", $.extend( {
 	setButtonCount: function() {
 		var selected = this.selected();
 
-		// multiple count inside button
+		// Multiple count inside button
 		if ( this.isMultiple ) {
 			this.buttonCount[ selected.length > 1 ? "show" : "hide" ]().text( selected.length );
 		}
