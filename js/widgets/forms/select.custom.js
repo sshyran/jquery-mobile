@@ -233,7 +233,7 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		"overlay-theme='" + overlayTheme + "'" ) : "";
 		dividerThemeAttr = ( o.dividerTheme && this.element.children( "optgroup" ).length > 0 ) ?
 			( " data-" + $.mobile.ns + "divider-theme='" + o.dividerTheme + "'" ) : "";
-		menuPage = $( "<div data-" + $.mobile.ns + "role='dialog' class='ui-selectmenu'" +
+		menuPage = $( "<div data-" + $.mobile.ns + "role='dialog' class='ui-selectmenu-custom'" +
 			themeAttr + overlayThemeAttr + ">" +
 			"<div data-" + $.mobile.ns + "type='header'>" +
 			"<div class='ui-title'></div>" +
@@ -242,11 +242,11 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			"</div>" )
 			.attr( "id", dialogId );
 		listbox = $( "<div" + themeAttr + overlayThemeAttr +
-			" class='ui-selectmenu'></div>" )
+			" class='ui-selectmenu-custom'></div>" )
 			.attr( "id", popupId )
 			.insertAfter( this.select )
 			.popup();
-		list = $( "<ul class='ui-selectmenu-list' role='listbox' aria-labelledby='" +
+		list = $( "<ul class='ui-selectmenu-custom-list' role='listbox' aria-labelledby='" +
 			this.buttonId + "'" + themeAttr + dividerThemeAttr + "></ul>" )
 			.attr( "id", menuId )
 			.appendTo( listbox );

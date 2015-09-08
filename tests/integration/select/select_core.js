@@ -214,7 +214,7 @@ QUnit.asyncTest( "a large select option should not overflow", function( assert )
 		},
 
 		function() {
-			menu = $( "#select-long-option-label-menu.ui-selectmenu-list" );
+			menu = $( "#select-long-option-label-menu.ui-selectmenu-custom-list" );
 
 			assert.equal( menu.outerWidth( true ),
 				menu.find( "li:nth-child(2) a" ).outerWidth( true ),
@@ -339,7 +339,8 @@ QUnit.asyncTest( "adding options and refreshing a custom select changes the opti
 
 			function() {
 				assert.strictEqual(
-					$( ".ui-popup-container:not(.ui-popup-hidden) .ui-selectmenu ul" ).text(),
+					$( ".ui-popup-container:not(.ui-popup-hidden) .ui-selectmenu-custom ul" )
+						.text(),
 					"default" );
 				$( ".ui-popup-screen.in" ).click();
 			},
@@ -358,7 +359,8 @@ QUnit.asyncTest( "adding options and refreshing a custom select changes the opti
 
 			function() {
 				assert.strictEqual(
-					$( ".ui-popup-container:not(.ui-popup-hidden) .ui-selectmenu ul" ).text(),
+					$( ".ui-popup-container:not(.ui-popup-hidden) .ui-selectmenu-custom ul" )
+						.text(),
 					text );
 				$( ".ui-popup-screen.in" ).click();
 			},

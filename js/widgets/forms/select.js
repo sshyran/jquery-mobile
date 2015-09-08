@@ -102,7 +102,7 @@ return $.widget( "mobile.selectmenu", $.extend( {
 			classes += " ui-mini";
 		}
 
-		this.select = this.element.removeClass( "ui-button-left ui-button-right" ).wrap( "<div class='ui-select" + classes + "'>" );
+		this.select = this.element.removeClass( "ui-button-left ui-button-right" ).wrap( "<div class='ui-selectmenu" + classes + "'>" );
 		this.selectId = this.select.attr( "id" ) || ( "select-" + this.uuid );
 		this.buttonId = this.selectId + "-button";
 		this.label = $( "label[for='" + $.mobile.path.hashToSelector( this.selectId ) + "']" );
@@ -110,7 +110,7 @@ return $.widget( "mobile.selectmenu", $.extend( {
 	},
 
 	_destroy: function() {
-		var wrapper = this.element.parents( ".ui-select" );
+		var wrapper = this.element.parents( ".ui-selectmenu" );
 		if ( wrapper.length > 0 ) {
 			if ( wrapper.is( ".ui-button-left, .ui-button-right" ) ) {
 				this.element.addClass( wrapper.hasClass( "ui-button-left" ) ? "ui-button-left" : "ui-button-right" );
@@ -146,7 +146,7 @@ return $.widget( "mobile.selectmenu", $.extend( {
 		// On the desktop,it seems to do the opposite
 		// for these reasons, using the nativeMenu option results in a full native select in Opera
 		if ( options.nativeMenu && window.opera && window.opera.version ) {
-			button.addClass( "ui-select-nativeonly" );
+			button.addClass( "ui-selectmenu-nativeonly" );
 		}
 
 		// Add counter for multi selects
