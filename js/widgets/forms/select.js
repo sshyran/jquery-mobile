@@ -50,8 +50,10 @@ return $.widget( "mobile.selectmenu", $.extend( {
 		hidePlaceholderMenuItems: true,
 		closeText: "Close",
 		nativeMenu: true,
+
 		// This option defaults to true on iOS devices.
-		preventFocusZoom: /iPhone|iPad|iPod/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1,
+		preventFocusZoom: /iPhone|iPad|iPod/.test( navigator.platform ) &&
+			navigator.userAgent.indexOf( "AppleWebKit" ) > -1,
 		mini: false
 	},
 
@@ -82,10 +84,12 @@ return $.widget( "mobile.selectmenu", $.extend( {
 		var inline = this.options.inline || this.element.jqmData( "inline" ),
 			mini = this.options.mini || this.element.jqmData( "mini" ),
 			classes = "";
-		// TODO: Post 1.1--once we have time to test thoroughly--any classes manually applied to the original element should be carried over to the enhanced element, with an `-enhanced` suffix. See https://github.com/jquery/jquery-mobile/issues/3577
-		/* if ( $el[0].className.length ) {
-			classes = $el[0].className;
-		} */
+		// TODO: Post 1.1--once we have time to test thoroughly--any classes manually applied to
+		// the original element should be carried over to the enhanced element, with an `-enhanced`
+		// suffix. See https://github.com/jquery/jquery-mobile/issues/3577
+		// if ( $el[0].className.length ) {
+		// 	classes = $el[0].className;
+		// }
 		if ( !!~this.element[ 0 ].className.indexOf( "ui-button-left" ) ) {
 			classes = " ui-button-left";
 		}
@@ -101,7 +105,9 @@ return $.widget( "mobile.selectmenu", $.extend( {
 			classes += " ui-mini";
 		}
 
-		this.select = this.element.removeClass( "ui-button-left ui-button-right" ).wrap( "<div class='ui-selectmenu" + classes + "'>" );
+		this.select = this.element
+			.removeClass( "ui-button-left ui-button-right" )
+			.wrap( "<div class='ui-selectmenu" + classes + "'>" );
 		this.selectId = this.select.attr( "id" ) || ( "select-" + this.uuid );
 		this.buttonId = this.selectId + "-button";
 		this.label = $( "label[for='" + $.mobile.path.hashToSelector( this.selectId ) + "']" );
@@ -112,7 +118,8 @@ return $.widget( "mobile.selectmenu", $.extend( {
 		var wrapper = this.element.parents( ".ui-selectmenu" );
 		if ( wrapper.length > 0 ) {
 			if ( wrapper.is( ".ui-button-left, .ui-button-right" ) ) {
-				this.element.addClass( wrapper.hasClass( "ui-button-left" ) ? "ui-button-left" : "ui-button-right" );
+				this.element.addClass( wrapper.hasClass( "ui-button-left" ) ? "ui-button-left" :
+					"ui-button-right" );
 			}
 			this.element.insertAfter( wrapper );
 			wrapper.remove();
@@ -126,7 +133,8 @@ return $.widget( "mobile.selectmenu", $.extend( {
 
 		var options = this.options,
 
-			iconpos = options.icon ? ( options.iconpos || this.select.jqmData( "iconpos" ) ) : false,
+			iconpos = options.icon ?
+				( options.iconpos || this.select.jqmData( "iconpos" ) ) : false,
 
 			button = this.button
 				.insertBefore( this.select )
@@ -202,7 +210,8 @@ return $.widget( "mobile.selectmenu", $.extend( {
 					.removeClass( "ui-button-active" );
 			} );
 
-		// In many situations, iOS will zoom into the select upon tap, this prevents that from happening
+		// In many situations, iOS will zoom into the select upon tap, this prevents that from
+		// happening
 		self.button.bind( "vmousedown", function() {
 			if ( self.options.preventFocusZoom ) {
 				$.mobile.zoom.disable( true );
@@ -265,7 +274,8 @@ return $.widget( "mobile.selectmenu", $.extend( {
 					span.text( text );
 				} else {
 
-					// Set the contents to &nbsp; which we write as &#160; to be XHTML compliant - see gh-6699
+					// Set the contents to &nbsp; which we write as &#160; to be XHTML compliant.
+					// See gh-6699
 					span.html( "&#160;" );
 				}
 
@@ -303,8 +313,8 @@ return $.widget( "mobile.selectmenu", $.extend( {
 		this._refreshButton();
 	},
 
-	// open and close preserved in native selects
-	// to simplify users code when looping over selects
+	// Functions open and close preserved in native selects to simplify users code when looping
+	// over selects
 	open: $.noop,
 	close: $.noop,
 

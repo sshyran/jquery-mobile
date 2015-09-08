@@ -9,7 +9,7 @@
 
 //>>label: Selects: Custom menus
 //>>group: Forms
-//>>description: Extension to select menus to support menu styling, placeholder options, and multi-select features.
+//>>description: Select menu extension for menu styling, placeholder options, and multi-select.
 //>>docs: http://api.jquerymobile.com/selectmenu/
 //>>demos: http://demos.jquerymobile.com/@VERSION/selectmenu-custom/
 //>>css.structure: ../css/structure/jquery.mobile.forms.select.css
@@ -34,7 +34,8 @@
 	}
 } )( function( $ ) {
 
-var unfocusableItemSelector = ".ui-disabled,.ui-state-disabled,.ui-listview-item-divider,.ui-screen-hidden,:jqmData(role='placeholder')",
+var unfocusableItemSelector = ".ui-disabled,.ui-state-disabled,.ui-listview-item-divider," +
+		".ui-screen-hidden,:jqmData(role='placeholder')",
 	goToAdjacentItem = function( item, target, direction ) {
 		var adjacent = item[ direction + "All" ]()
 			.not( unfocusableItemSelector )
@@ -54,11 +55,13 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 	_create: function() {
 		var o = this.options;
 
-		this._origTabIndex = ( this.element.attr( "tabindex" ) === undefined ) ? false : this.element.attr( "tabindex" );
+		this._origTabIndex = ( this.element.attr( "tabindex" ) === undefined ) ? false :
+			this.element.attr( "tabindex" );
 
 		// Custom selects cannot exist inside popups, so revert the "nativeMenu" option to true if
 		// a parent is a popup
-		o.nativeMenu = o.nativeMenu || ( this.element.parents( ":jqmData(role='popup'),:mobile-popup" ).length > 0 );
+		o.nativeMenu = o.nativeMenu ||
+			( this.element.parents( ":jqmData(role='popup'),:mobile-popup" ).length > 0 );
 
 		return this._super();
 	},
@@ -79,16 +82,24 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		}
 
 		if ( event.type === "vclick" ||
-				event.keyCode && ( event.keyCode === $.mobile.keyCode.ENTER || event.keyCode === $.mobile.keyCode.SPACE ) ) {
+				event.keyCode &&
+					( event.keyCode === $.mobile.keyCode.ENTER ||
+						event.keyCode === $.mobile.keyCode.SPACE ) ) {
 
 			this._decideFormat();
 			if ( this.menuType === "overlay" ) {
-				this.button.attr( "href", "#" + this.popupId ).attr( "data-" + ( $.mobile.ns || "" ) + "rel", "popup" );
+				this.button
+					.attr( "href", "#" + this.popupId )
+					.attr( "data-" + ( $.mobile.ns || "" ) + "rel", "popup" );
 			} else {
-				this.button.attr( "href", "#" + this.dialogId ).attr( "data-" + ( $.mobile.ns || "" ) + "rel", "dialog" );
+				this.button
+					.attr( "href", "#" + this.dialogId )
+					.attr( "data-" + ( $.mobile.ns || "" ) + "rel", "dialog" );
 			}
 			this.isOpen = true;
-			// Do not prevent default, so the navigation may have a chance to actually open the chosen format
+
+			// Do not prevent default, so the navigation may have a chance to actually open the
+			// chosen format
 		}
 	},
 
@@ -250,7 +261,8 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			this.buttonId + "'" + themeAttr + dividerThemeAttr + "></ul>" )
 			.attr( "id", menuId )
 			.appendTo( listbox );
-		header = $( "<div class='ui-header ui-bar-" + ( o.theme ? o.theme : "inherit" ) + "'></div>" ).prependTo( listbox );
+		header = $( "<div class='ui-header ui-bar-" + ( o.theme ? o.theme : "inherit" ) + "'>" +
+			"</div>" ).prependTo( listbox );
 		headerTitle = $( "<h1 class='ui-title'></h1>" ).appendTo( header );
 
 		if ( this.isMultiple ) {
@@ -258,7 +270,8 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 				"role": "button",
 				"text": o.closeText,
 				"href": "#",
-				"class": "ui-button ui-corner-all ui-button-left ui-button-icon-only ui-icon-delete"
+				"class": "ui-button ui-corner-all ui-button-left ui-button-icon-only " +
+					"ui-icon-delete"
 			} ).appendTo( header );
 		}
 
@@ -299,7 +312,8 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			"focusin": "_handleListFocus",
 			"focusout": "_handleListFocus",
 			"keydown": "_handleListKeydown",
-			"click li:not(.ui-disabled,.ui-state-disabled,.ui-listview-item-divider)": "_handleListItemClick"
+			"click li:not(.ui-disabled,.ui-state-disabled,.ui-listview-item-divider)":
+				"_handleListItemClick"
 		} );
 
 		// Button refocus ensures proper height calculation by removing the inline style and
@@ -373,7 +387,9 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 
 					// Multiple selects: add the "on" checkbox state to the icon
 					if ( self.isMultiple ) {
-						item.find( "a" ).removeClass( "ui-checkbox-off" ).addClass( "ui-checkbox-on" );
+						item.find( "a" )
+							.removeClass( "ui-checkbox-off" )
+							.addClass( "ui-checkbox-on" );
 					} else {
 						if ( item.hasClass( "ui-screen-hidden" ) ) {
 							item.next().find( "a" ).addClass( "ui-button-active" );
@@ -523,7 +539,10 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 				}
 			}
 
-			if ( needPlaceholder && ( !option.getAttribute( "value" ) || text.length === 0 || $option.jqmData( "placeholder" ) ) ) {
+			if ( needPlaceholder &&
+				( !option.getAttribute( "value" ) ||
+					text.length === 0 ||
+					$option.jqmData( "placeholder" ) ) ) {
 				needPlaceholder = false;
 				isPlaceholderItem = true;
 
