@@ -140,11 +140,17 @@ return $.widget( "mobile.selectmenu", $.extend( {
 				.insertBefore( this.select )
 				.attr( "id", this.buttonId )
 				.addClass( "ui-button" +
-					( options.icon ?
-						( " ui-icon-" + options.icon + " ui-button-icon-" + iconpos ) : "" ) +
 					( options.theme ? " ui-button-" + options.theme : "" ) +
 					( options.corners ? " ui-corner-all" : "" ) +
 					( options.shadow ? " ui-shadow" : "" ) );
+
+		if ( this.options.icon ) {
+			this.icon = $( "<span>" );
+			this._addClass( this.icon, "ui-selectmenu-button-icon",
+				"ui-icon-" + options.icon + " ui-icon ui-widget-icon-float" +
+					( iconpos === "right" ? "end" : "beginning" ) );
+			this.button.append( this.icon );
+		}
 
 		this.setButtonText();
 
@@ -260,7 +266,9 @@ return $.widget( "mobile.selectmenu", $.extend( {
 			text = this.placeholder,
 			span = $( document.createElement( "span" ) );
 
-		this.button.children( "span" ).not( ".ui-listview-item-count-bubble" ).remove().end().end()
+		this.button.children( "span" )
+			.not( ".ui-listview-item-count-bubble,.ui-selectmenu-button-icon" )
+			.remove().end().end()
 			.prepend( ( function() {
 				if ( selected.length ) {
 					text = selected.map( function() {
