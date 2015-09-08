@@ -45,7 +45,6 @@ return $.widget( "mobile.selectmenu", $.extend( {
 		inline: false,
 		corners: true,
 		shadow: true,
-		iconshadow: false, /* TODO: Deprecated in 1.4, remove in 1.5. */
 		overlayTheme: null,
 		dividerTheme: null,
 		hidePlaceholderMenuItems: true,
@@ -133,8 +132,8 @@ return $.widget( "mobile.selectmenu", $.extend( {
 				.insertBefore( this.select )
 				.attr( "id", this.buttonId )
 				.addClass( "ui-button" +
-					( options.icon ? ( " ui-icon-" + options.icon + " ui-button-icon-" + iconpos +
-					( options.iconshadow ? " ui-shadow-icon" : "" ) ) : "" ) + /* TODO: Remove in 1.5. */
+					( options.icon ?
+						( " ui-icon-" + options.icon + " ui-button-icon-" + iconpos ) : "" ) +
 					( options.theme ? " ui-button-" + options.theme : "" ) +
 					( options.corners ? " ui-corner-all" : "" ) +
 					( options.shadow ? " ui-shadow" : "" ) );
