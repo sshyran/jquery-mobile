@@ -52,6 +52,13 @@ var unfocusableItemSelector = ".ui-disabled,.ui-state-disabled,.ui-listview-item
 	};
 
 return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
+	options: {
+		overlayTheme: null,
+		dividerTheme: null,
+		hidePlaceholderMenuItems: true,
+		closeText: "Close"
+	},
+
 	_create: function() {
 		var o = this.options;
 
