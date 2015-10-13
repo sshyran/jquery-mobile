@@ -391,7 +391,9 @@ QUnit.asyncTest( "dialog size select title should match the label", function( as
 		},
 
 		function() {
-			assert.strictEqual( $.mobile.activePage.find( ".ui-title" ).text(), $label.text() );
+			assert.strictEqual( $.mobile.activePage.find( ".ui-toolbar-title" ).text(),
+				$label.text(),
+				"Dialog title set to label text" );
 			window.history.back();
 		},
 
@@ -411,7 +413,7 @@ QUnit.asyncTest( "dialog size select title should match the placeholder when the
 			},
 
 			function() {
-				assert.strictEqual( $.mobile.activePage.find( ".ui-title" ).text(),
+				assert.strictEqual( $.mobile.activePage.find( ".ui-toolbar-title" ).text(),
 					$label.text() );
 				window.history.back();
 			},
@@ -440,7 +442,7 @@ QUnit.asyncTest( "dialog size select title should match the label when changed a
 			},
 
 			function() {
-				assert.strictEqual( $.mobile.activePage.find( ".ui-title" ).text(),
+				assert.strictEqual( $.mobile.activePage.find( ".ui-toolbar-title" ).text(),
 					$label.text() );
 				window.history.back();
 			},

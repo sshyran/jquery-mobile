@@ -24,6 +24,7 @@
 			"../../core",
 			"../../navigation",
 			"./select",
+			"../toolbar",
 			"../listview",
 			"../page.dialog.backcompat",
 			"../popup" ], factory );
@@ -228,15 +229,15 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 	},
 
 	build: function() {
-		var selectId, popupId, dialogId, label, thisPage, isMultiple, menuId,
-			themeAttr, overlayTheme, overlayThemeAttr, dividerThemeAttr,
-			menuPage, listbox, list, header, headerTitle, menuPageContent,
-			menuPageClose, headerClose,
-			o = this.options;
-
-		if ( o.nativeMenu ) {
+		if ( this.options.nativeMenu ) {
 			return this._super();
 		}
+
+		var selectId, popupId, dialogId, label, thisPage, isMultiple, menuId,
+			themeAttr, overlayTheme, overlayThemeAttr, dividerThemeAttr,
+			menuPage, menuPageHeader, listbox, list, header, headerTitle, menuPageContent,
+			menuPageClose, headerClose,
+			o = this.options;
 
 		selectId = this.selectId;
 		popupId = selectId + "-listbox";
@@ -251,16 +252,15 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		"overlay-theme='" + overlayTheme + "'" ) : "";
 		dividerThemeAttr = ( o.dividerTheme && this.element.children( "optgroup" ).length > 0 ) ?
 			( " data-" + $.mobile.ns + "divider-theme='" + o.dividerTheme + "'" ) : "";
-		menuPage = $( "<div data-" + $.mobile.ns + "role='dialog' class='ui-selectmenu-custom'" +
-			themeAttr + overlayThemeAttr + ">" +
-			"<div data-" + $.mobile.ns + "type='header'>" +
-			"<div class='ui-title'></div>" +
-			"</div>" +
+		menuPage = $( "<div data-" + $.mobile.ns + "role='dialog' class='ui-selectmenu-custom'>" +
 			"<div class='ui-content'></div>" +
 			"</div>" )
-			.attr( "id", dialogId );
-		listbox = $( "<div" + themeAttr + overlayThemeAttr +
-			" class='ui-selectmenu-custom'></div>" )
+			.attr( "id", dialogId )
+			.page();
+		menuPageHeader = $( "<div><h1></h1></div>" )
+			.toolbar( { type: "header" } )
+			.prependTo( menuPage );
+		listbox = $( "<div class='ui-selectmenu-custom'></div>" )
 			.attr( "id", popupId )
 			.insertAfter( this.select )
 			.popup();
@@ -268,9 +268,10 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			this.buttonId + "'" + themeAttr + dividerThemeAttr + "></ul>" )
 			.attr( "id", menuId )
 			.appendTo( listbox );
-		header = $( "<div class='ui-header ui-bar-" + ( o.theme ? o.theme : "inherit" ) + "'>" +
-			"</div>" ).prependTo( listbox );
-		headerTitle = $( "<h1 class='ui-title'></h1>" ).appendTo( header );
+		header = $( "<div>" )
+			.toolbar( { type: "header" } )
+			.prependTo( listbox );
+		headerTitle = $( "<h1></h1>" ).appendTo( header );
 
 		if ( this.isMultiple ) {
 			headerClose = $( "<a>", {
@@ -289,6 +290,7 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			dialogId: dialogId,
 			thisPage: thisPage,
 			menuPage: menuPage,
+			menuPageHeader: menuPageHeader,
 			label: label,
 			isMultiple: isMultiple,
 			theme: o.theme,
@@ -443,6 +445,30 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		selector.first().focus();
 	},
 
+	_setTheme: function( key, value ) {
+		this.listbox.popup( "option", key, value );
+
+		// We cannot pass inherit to the dialog because pages are supposed to set the theme for
+		// the pagecontainer in which they reside. If they set it to inherit the pagecontainer
+		// will not inherit from anything above it.
+		if ( value !== "inherit" ) {
+			this.menuPage.page( "option", key, value );
+		}
+
+		if ( key === "theme" ) {
+			this.header.toolbar( "option", key, value );
+			this.menuPageHeader.toolbar( "option", key, value );
+		}
+	},
+
+	_setOption: function( key, value ) {
+		if ( !this.options.nativeMenu && ( key === "theme" || key === "overlayTheme" ) ) {
+			this._setTheme( key, value );
+		}
+
+		return this._superApply( arguments );
+	},
+
 	_decideFormat: function() {
 		var self = this,
 			$window = this.window,
@@ -454,7 +480,7 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 
 		if ( menuHeight > screenHeight - 80 || !$.support.scrollTop ) {
 
-			self.menuPage.appendTo( $.mobile.pageContainer ).page();
+			self.menuPage.appendTo( $.mobile.pageContainer );
 			self.menuPageContent = self.menuPage.find( ".ui-content" );
 			self.menuPageClose = self.menuPage.find( ".ui-header a" );
 
@@ -477,13 +503,15 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			self.menuType = "page";
 			self.menuPageContent.append( self.list );
 			self.menuPage
-				.find( "div .ui-title" )
+				.find( "div .ui-toolbar-title" )
 					.text( self.label.getEncodedText() || self.placeholder );
 		} else {
 			self.menuType = "overlay";
 
 			self.listbox.one( { popupafteropen: $.proxy( this, "_focusMenuItem" ) } );
 		}
+		this._setTheme( "theme", this.options.theme );
+		this._setTheme( "overlayTheme", this.options.overlayTheme );
 	},
 
 	_buildList: function() {
