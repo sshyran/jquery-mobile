@@ -15,7 +15,8 @@
 		( function( $ ) {
 			$.mobileBackcompat = false;
 			$.testHelper.asyncLoad( [
-				[ "widgets/enhancer", "widgets/forms/select.custom" ],
+				[ "widgets/forms/select.custom" ],
+				[ "init" ],
 				[ "new_core.js" ]
 			] );
 		} )( jQuery );
@@ -23,26 +24,35 @@
 
 	<link rel="stylesheet"  href="../../../css/themes/default/jquery.mobile.css"/>
 	<link rel="stylesheet" href="../../../external/qunit/qunit.css"/>
-	<link rel="stylesheet" href="../../jqm-tests.css"/>
+	<!--<link rel="stylesheet" href="../../jqm-tests.css"/>-->
 
 	<script src="../../swarminject.js"></script>
 </head>
 <body>
 
 	<div id="qunit"></div>
+	<div data-ui-role="page">
+		<select id="test-theme" data-ui-role="selectmenu">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+		</select>
 
-	<select id="test-theme">
-		<option value="1">Option 1</option>
-		<option value="2">Option 2</option>
-		<option value="3">Option 3</option>
-		<option value="4">Option 4</option>
-	</select>
+		<select id="test-theme-initially-set" data-ui-role="selectmenu" data-ui-theme="b">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+		</select>
 
-	<select id="test-theme-initially-set" data-ui-theme="b">
-		<option value="1">Option 1</option>
-		<option value="2">Option 2</option>
-		<option value="3">Option 3</option>
-		<option value="4">Option 4</option>
-	</select>
+		<select id="hide-placeholders" data-ui-role="selectmenu" data-ui-native-menu="false" data-ui-hide-placeholder-menu-items="true">
+			<option id="placeholder" data-ui-placeholder="true">Placeholder 1</option>
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+		</select>
+	</div>
 </body>
 </html>

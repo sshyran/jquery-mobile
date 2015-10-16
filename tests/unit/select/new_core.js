@@ -1,8 +1,4 @@
-module( "Theme tests", {
-	setup: function() {
-		$.enhance._installWidget();
-	}
-} );
+module( "Theme tests" );
 
 function testThemeChange( assert, selectmenu, button, initial, firstChange, secondChange ) {
 	assert.hasClasses( button, "ui-button-" + initial, "The correct initial swatch is present" );
@@ -24,13 +20,26 @@ function testThemeChange( assert, selectmenu, button, initial, firstChange, seco
 }
 
 QUnit.test( "Theme change - initially unset", function( assert ) {
-	var menu = $( "#test-theme" ).selectmenu();
+	var menu = $( "#test-theme" );
 
 	testThemeChange( assert, menu, $( "#test-theme-button" ), "inherit", "a", "b" );
 } );
 
 QUnit.test( "Theme change - initially set", function( assert ) {
-	var menu = $( "#test-theme-initially-set" ).selectmenu();
+	var menu = $( "#test-theme-initially-set" );
 
 	testThemeChange( assert, menu, $( "#test-theme-initially-set-button" ), "b", "a", "inherit" );
+} );
+
+module( "Option tests" );
+
+QUnit.test( "hidePlaceholderMenuItems", function( assert ) {
+	var menu = $( "#hide-placeholders" ),
+		placeholder = $( "#placeholder" );
+
+	assert.hasClasses( placeholder, "ui-screen-hidden", "Placeholder is initially hidden" );
+
+	menu.selectmenu( "option", "hidePlaceholderMenuItems", false );
+
+	assert.lacksClasses( placeholder, "ui-screen-hidden", "Turning off option shows placeholder" );
 } );

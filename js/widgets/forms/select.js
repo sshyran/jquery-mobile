@@ -243,7 +243,6 @@ $.widget( "mobile.selectmenu", $.extend( {
 				$.mobile.zoom.enable( true );
 			}
 		} );
-
 	},
 
 	selected: function() {
