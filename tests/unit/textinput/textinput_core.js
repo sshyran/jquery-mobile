@@ -1,7 +1,7 @@
 /*
  * mobile textinput unit tests
  */
-( function( QUnit, $ ) {
+define( [ "qunit", "jquery" ], function( QUnit, $ ) {
 
 QUnit.module( "jquery.mobile.forms.textinput.js" );
 
@@ -221,4 +221,4 @@ QUnit.test( "textinput is disabled/enabled correctly", function( assert ) {
 		"After disabling, the 'disabled' prop is true" );
 } );
 
-} )( QUnit, jQuery );
+} );
