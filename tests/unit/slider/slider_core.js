@@ -1,7 +1,7 @@
 /*
  * mobile slider unit tests
  */
-( function( $ ) {
+define( [ "jquery" ], function( $ ) {
 
 module( "jquery.mobile.slider.js core" );
 
@@ -95,4 +95,4 @@ test( "slider input is disabled correctly", function( assert ) {
 	assert.hasClasses( slider, "ui-state-disabled" );
 } );
 
-} )( jQuery );
+} );
