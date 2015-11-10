@@ -54,6 +54,10 @@ var unfocusableItemSelector = ".ui-disabled,.ui-state-disabled,.ui-listview-item
 
 return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 	options: {
+		classes: {
+			"ui-selectmenu-custom-header-close-button":
+				"ui-button ui-corner-all ui-button-left ui-button-icon-only ui-icon-delete"
+		},
 		overlayTheme: null,
 		dividerTheme: null,
 		hidePlaceholderMenuItems: true,
@@ -253,19 +257,19 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		"overlay-theme='" + overlayTheme + "'" ) : "";
 		dividerThemeAttr = ( o.dividerTheme && this.element.children( "optgroup" ).length > 0 ) ?
 			( " data-" + $.mobile.ns + "divider-theme='" + o.dividerTheme + "'" ) : "";
-		menuPage = $( "<div data-" + $.mobile.ns + "role='dialog' class='ui-selectmenu-custom'>" +
-			"<div class='ui-content'></div>" +
+		menuPage = $( "<div data-" + $.mobile.ns + "role='dialog'>" +
+			"<div></div>" +
 			"</div>" )
 			.attr( "id", dialogId )
 			.page();
 		menuPageHeader = $( "<div><h1></h1></div>" )
 			.toolbar( { type: "header" } )
 			.prependTo( menuPage );
-		listbox = $( "<div class='ui-selectmenu-custom'></div>" )
+		listbox = $( "<div></div>" )
 			.attr( "id", popupId )
 			.insertAfter( this.select )
 			.popup();
-		list = $( "<ul class='ui-selectmenu-custom-list' role='listbox' aria-labelledby='" +
+		list = $( "<ul role='listbox' aria-labelledby='" +
 			this.buttonId + "'" + themeAttr + dividerThemeAttr + "></ul>" )
 			.attr( "id", menuId )
 			.appendTo( listbox );
@@ -274,14 +278,19 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			.prependTo( listbox );
 		headerTitle = $( "<h1></h1>" ).appendTo( header );
 
+		this._addClass( menuPage, null, "ui-selectmenu-custom" );
+		this._addClass( menuPage.children(), null, "ui-content" );
+		this._addClass( listbox, null, "ui-selectmenu-custom" );
+		this._addClass( list, null, "ui-selectmenu-custom-list" );
+
 		if ( this.isMultiple ) {
 			headerClose = $( "<a>", {
 				"role": "button",
 				"text": o.closeText,
-				"href": "#",
-				"class": "ui-button ui-corner-all ui-button-left ui-button-icon-only " +
-					"ui-icon-delete"
-			} ).appendTo( header );
+				"href": "#"
+			} );
+			this._addClass( headerClose, "ui-selectmenu-custom-header-close-button" );
+			headerClose.appendTo( header );
 		}
 
 		$.extend( this, {
