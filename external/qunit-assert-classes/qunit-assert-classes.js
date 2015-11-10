@@ -46,8 +46,8 @@
 		}
 
 		return {
-			missing: missing,
-			found: found,
+			missing: missing || [],
+			found: found || [],
 			element: element,
 			classAttribute: classAttribute
 		};
