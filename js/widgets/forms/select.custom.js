@@ -64,6 +64,10 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		closeText: "Close"
 	},
 
+	_ns: function() {
+		return "ui-";
+	},
+
 	_create: function() {
 		var o = this.options;
 
@@ -95,18 +99,18 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 
 		if ( event.type === "vclick" ||
 				event.keyCode &&
-					( event.keyCode === $.mobile.keyCode.ENTER ||
-						event.keyCode === $.mobile.keyCode.SPACE ) ) {
+					( event.keyCode === $.ui.keyCode.ENTER ||
+						event.keyCode === $.ui.keyCode.SPACE ) ) {
 
 			this._decideFormat();
 			if ( this.menuType === "overlay" ) {
 				this.button
 					.attr( "href", "#" + this.popupId )
-					.attr( "data-" + ( $.mobile.ns || "" ) + "rel", "popup" );
+					.attr( "data-" + ( this._ns() || "" ) + "rel", "popup" );
 			} else {
 				this.button
 					.attr( "href", "#" + this.dialogId )
-					.attr( "data-" + ( $.mobile.ns || "" ) + "rel", "dialog" );
+					.attr( "data-" + ( this._ns() || "" ) + "rel", "dialog" );
 			}
 			this.isOpen = true;
 
@@ -251,13 +255,13 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		thisPage = this.element.closest( ".ui-page" );
 		isMultiple = this.element[ 0 ].multiple;
 		menuId = selectId + "-menu";
-		themeAttr = o.theme ? ( " data-" + $.mobile.ns + "theme='" + o.theme + "'" ) : "";
+		themeAttr = o.theme ? ( " data-" + this._ns() + "theme='" + o.theme + "'" ) : "";
 		overlayTheme = o.overlayTheme || o.theme || null;
-		overlayThemeAttr = overlayTheme ? ( " data-" + $.mobile.ns +
+		overlayThemeAttr = overlayTheme ? ( " data-" + this._ns() +
 		"overlay-theme='" + overlayTheme + "'" ) : "";
 		dividerThemeAttr = ( o.dividerTheme && this.element.children( "optgroup" ).length > 0 ) ?
-			( " data-" + $.mobile.ns + "divider-theme='" + o.dividerTheme + "'" ) : "";
-		menuPage = $( "<div data-" + $.mobile.ns + "role='dialog'>" +
+			( " data-" + this._ns() + "divider-theme='" + o.dividerTheme + "'" ) : "";
+		menuPage = $( "<div data-" + this._ns() + "role='dialog'>" +
 			"<div></div>" +
 			"</div>" )
 			.attr( "id", dialogId )
@@ -541,7 +545,7 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 			needPlaceholder = true,
 			dataIcon = "false",
 			$options, numOptions, select,
-			dataPrefix = "data-" + $.mobile.ns,
+			dataPrefix = "data-" + this._ns(),
 			dataIndexAttr = dataPrefix + "option-index",
 			dataIconAttr = dataPrefix + "icon",
 			dataRoleAttr = dataPrefix + "role",
@@ -683,7 +687,7 @@ return $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 
 			// Remove the placeholder attribute if we were the ones to add it
 			if ( this._removePlaceholderAttr ) {
-				this._selectOptions().removeAttr( "data-" + $.mobile.ns + "placeholder" );
+				this._selectOptions().removeAttr( "data-" + this._ns() + "placeholder" );
 			}
 
 			// Remove the popup
